@@ -1,0 +1,847 @@
+'///// Program Grafis 3D
+
+'koordinat mata atau posisi mata 
+
+Dim pmatax# = 0
+Dim pmatay# = 0 
+Dim pmataz# = 4
+
+'koordinat titik pandang atau posisi titik pandang 
+Dim ppandangx# = 0
+Dim ppandangy# = 0
+Dim ppandangz# = -4
+
+'kecepatan transisi perpindahan
+Dim pindah# = 0.01   
+
+'variabel untuk menyimpan gambar tekstur pada bidang
+Dim tekstur1
+Dim tekstur2
+
+tekstur1 = loadmipmaptexture("gambar/tekstur1.jpg")
+tekstur2 = loadmipmaptexture("gambar/tekstur2.jpg")
+
+'fungsi untuk mengaktifkan gambar tekstur pada bidang
+glEnable(gl_texture_2d)
+
+while true 
+glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT) 'untuk menghapus window dan menyesuaikan tampilan sesuai yang telah didefinisikan
+glLoadIdentity() 'digunakan untuk memanggil matriks identitas dan dijadikan status matriks (proyeksi) saat ini
+
+'untuk mendefiniskan garis pandang
+gluLookAt(pmatax#, pmatay#, pmataz#, ppandangx#, ppandangy#, ppandangz#, 0,1,0) 'posisi mata, posisi titik pandang, vektor up (0,1,0) -> untuk menunjukkan dimana arah atas
+
+'fungsi untuk menggunakan gambar tekstur pada bidang
+glBindTexture(gl_texture_2d, tekstur1)
+
+
+'///// bidang depan
+'bidang depan sisi luar
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)		'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1)		'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1)		'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)		'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang depan sisi dalam
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1.2)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1.2)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1.2) 	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1.2)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang depan sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1.2)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1.2)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang depan sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1.2)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1.2)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang depan sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1.2)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1.2)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang depan sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1.2)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1.2)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+
+'///// bidang kiri
+'bidang kiri sisi luar
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -1)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang kiri sisi dalam
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4)		'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4)		'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang kiri sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4)		'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -4)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -1) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang kiri sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4)		'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang kiri sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -1)		'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -1)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1) 	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -1)		'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang kiri sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4)		'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -1.5, -4)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4) 	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4)		'titik kanan bawah untuk membuat sisi
+glEnd()
+
+
+'///// bidang belakang
+'bidang belakang sisi dalam
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)		'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4)		'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4)		'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)		'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang belakang sisi luar
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -3.8)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -3.8)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -3.8) 	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -3.8)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang belakang sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -3.8)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -3.8)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang belakang sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -3.8)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -3.8)	'titik kiri belanag untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4) 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)		'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang depan sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -3.8)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -3.8)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang depan sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -3.8)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -1.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2, -2.5, -3.8)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+
+'///// bidang kanan
+'bidang kanan sisi dalam
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)		'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)		'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang kanan sisi luar
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -1)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang kanan sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -4)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)		'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)	 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -1)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang kanan sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)		'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)	 	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang kanan sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -1)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -1)		'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -1)	 	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang kanan sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -1.5, -4)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -1.5, -4)		'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2, -2.5, -4)		'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+
+'///// bidang bawah
+'bidang bawah sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4)	'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1)	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang bawah sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -4)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -4)	'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -1)	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -1)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'bidang bawah sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -4)	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -4)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang bawah sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -1)	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -1)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'bidang bawah sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -1)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-2.2, -2.7, -1)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+'bidang bawah sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -1)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.5, -4)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -4)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(2.2, -2.7, -1)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+
+'fungsi untuk menggunakan gambar tekstur pada bidang
+glBindTexture(gl_texture_2d, tekstur2)
+
+
+'///// kubus atas
+'sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, 0, -3)		'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, 0, -3)	'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, 0, -1.75)	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, 0, -1.75)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -3)	'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -3)'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -1.75)'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -1.75)'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, 0, -3)		'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, 0, -3)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -3)'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -3)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, 0, -1.75)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.615, 0, -1.75)'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -1.75)'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -1.75)'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.615, 0, -1.75)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, 0, -3)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -3)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.625, -1.25, -1.75)'titik depan bawah untuk membuat sisi
+glEnd()
+
+'sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.615, 0, -1.75)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, 0, -3)		'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -3)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.625, -1.25, -1.75)'titik depan bawah untuk membuat sisi
+glEnd()
+
+
+'///// kubus bawah kiri
+'sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -3.25)'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -3.25)'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -2)	'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -2)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -3.25)'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -3.25)'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -2)'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -2)	'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -3.25)'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -3.25)'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -3.25)'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -3.25)'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -2)	'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -2)	'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -2)	'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -2)	'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -2)		'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -1.25, -3.25)	'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -3.25)	'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-1.50, -2.5, -2)		'titik depan bawah untuk membuat sisi
+glEnd()
+
+'sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -2)	'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -1.25, -3.25)'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -3.25)'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(-0.25, -2.5, -2)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+
+'///// kubus bawah kanan
+'sisi atas
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -2.75)'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -2.75)'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -1.50)'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -1.50)'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi bawah
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -2.5, -2.75)'titik kanan belakang untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri belakang untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -2.75)'titik kiri belakang untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -1.5)'titik kiri depan untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan depan untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.55, -2.5, -1.5)'titik kanan depan untuk membuat sisi
+glEnd()
+
+'sisi belakang
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -2.75)'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -2.75)'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -2.75)'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -2.5, -2.75)'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi depan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik kanan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -1.5)'titik kanan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik kiri atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -1.5)'titik kiri atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik kiri bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -1.5)'titik kiri bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik kanan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -2.5, -1.5)'titik kanan bawah untuk membuat sisi
+glEnd()
+
+'sisi kiri
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -1.5)'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -1.25, -2.75)'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -2.75)'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(0.25, -2.5, -1.5)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+'sisi kanan
+glBegin(GL_QUADS) 'untuk memperlakukan masing-masing kelompok dari empat verteks sebagai segiempat independen
+   'glColor3f(1,0,0)	'memberi warna merah
+   glTexCoord2d(1,1)		'titik depan atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -1.5)'titik depan atas untuk membuat sisi
+   'glColor3f(0,1,0)	'memberi warna hijau
+   glTexCoord2d(0,1)		'titik belakang atas untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -1.25, -2.75)'titik belakang atas untuk membuat sisi
+   'glColor3f(0,0,1) 	'memberi warna biru
+   glTexCoord2d(0,0)		'titik belakang bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -2.5, -2.75)'titik belakang bawah untuk membuat sisi 
+   'glColor3f(1,1,0) 	'memberi warna kuning
+   glTexCoord2d(1,0)		'titik depan bawah untuk meletakkan gambar terkstur pada sisi
+   glVertex3f(1.50, -2.5, -1.5)	'titik depan bawah untuk membuat sisi
+glEnd()
+
+swapBuffers() 'digunakan untuk menukar bagian belakang buffer menjadi buffer layar (screen buffer)
+
+if scankeydown(VK_RIGHT) then 'menggerakkan objek melalui keyboard
+    pmatax# = pmatax# + pindah#
+	'ppandangx# = ppandangx# + pindah#
+elseif scankeydown(VK_LEFT) then 'menggerakkan objek melalui keyboard
+    pmatax# = pmatax# - pindah# 
+	'ppandangx# = ppandangx# - pindah#
+elseif scankeydown(VK_UP) then 'menggerakkan objek melalui keyboard
+	pmatay# = pmatay# + pindah#
+	'ppandangy# = ppandangy# + pindah#
+elseif scankeydown(VK_DOWN) then 'menggerakkan objek melalui keyboard
+	pmatay# = pmatay# - pindah#
+	'ppandangy# = ppandangy# - pindah#
+elseif scankeydown(VK_NUMPAD8) then 'menggerakkan objek melalui keyboard
+	pmataz# = pmataz# + pindah#
+	'ppandangz# = ppandangz# + pindah#
+elseif scankeydown(VK_NUMPAD2) then 'menggerakkan objek melalui keyboard
+	pmataz# = pmataz# - pindah#
+	'ppandangz# = ppandangz# - pindah#
+endif
+
+wend 'bentuk pengulangan terkendali dengan proses akan diulang selama kondisi yang diberikan masih dipenuhi
